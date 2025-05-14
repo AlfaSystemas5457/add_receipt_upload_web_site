@@ -40,7 +40,7 @@
                 <div class="container my-5 text-center">
                     <h2>Ha ocurrido un error</h2>
                     <p t-esc="error"></p>
-                    <a href="/confirm/quote/upload" class="btn btn-secondary mt-3">Volver</a>
+                    <a href="/" class="btn btn-secondary mt-3">Volver a inicio</a>
                 </div>
             </t>
         </template>

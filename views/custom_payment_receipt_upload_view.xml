@@ -4,10 +4,6 @@
         <template id="custom_payment_receipt_upload" name="Custom Receipt Upload"
             inherit_id="website_sale.payment">
             <xpath expr="//div[@id='payment_method']" position="after">
-                <!-- <div class="form-group mt-3">
-                <label for="receipt_upload">Subir Recibo de Pago</label>
-                <input type="file" name="receipt_upload" id="receipt_upload" class="form-control" />
-            </div> -->
                 <form action="/confirm/quote/upload" method="post"
                     enctype="multipart/form-data" class="mt-4">
                     <button type="submit" class="btn btn-primary">Confirmar Cotización</button>
@@ -31,15 +27,6 @@
                 </t>
             </xpath>
         </template>
-
-        <!-- <template id="custom_payment_form_receipt_upload" name="Payment Form Upload"
-        inherit_id="website_sale.navigation_buttons">
-        <xpath expr="//div[1]" position="inside">
-            <button type="button" id="confirm_quote" class="btn btn-primary mt-3">
-                Confirmar Cotización
-            </button>
-        </xpath>
-    </template> -->
 
         <record id="view_order_form_inherit_receipt" model="ir.ui.view">
             <field name="name">sale.order.form.receipt.attachments</field>
