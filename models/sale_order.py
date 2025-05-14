@@ -13,13 +13,24 @@ class SaleOrder(models.Model):
     email_sent = fields.Boolean(string="Correo enviado", default=False)
 
     def send_mail(self):
-        self.ensure_one()
+        self.ensure_one()  # Asegúrate de estar en un solo pedido
 
         template = self.env.ref(
             'add_receipt_upload_web_site.email_template_custom_quotation')
 
         if template:
-            template.send_mail(self.id, force_send=False)
+            # Enviar el correo
+            body_html = template._render_field('body_html', [self.id])[self.id]
+            template.send_mail(self.id, force_send=True)
+
+            # Publicar en el chatter del pedido
+            self.message_post(
+                body=body_html,
+                message_type="comment",
+                subtype_xmlid="mail.mt_note"
+            )
+
+            # Marcar como enviado si lo deseas
             self.email_sent = True
 
     def upload_receipt(self, attachment=None):
