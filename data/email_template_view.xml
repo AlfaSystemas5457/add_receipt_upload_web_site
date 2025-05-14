@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- Plantilla de correo electrónico -->
+    <record id="email_template_custom_quotation" model="mail.template">
+        <field name="name">Custom Quotation Email with Upload Link</field>
+        <field name="subject">Orden {{object.name}} confirmada</field>
+        <field name="email_from">{{user.email_formatted or ''}}</field>
+        <field name="email_to">{{object.partner_id.email}}</field>
+        <field name="model_id" ref="sale.model_sale_order" />
+        <field name="body_html"><![CDATA[
+            <p>Hola <t t-out="object.partner_id.name"/>,</p>
+
+            <p>Su orden <strong><t t-out="object.name"/></strong> por un importe de <t t-out="format_amount(object.amount_total, object.pricelist_id.currency_id)"/> ha sido confirmada.</p>
+            
+            <p>Agradecemos su confianza.</p>
+            
+            <p><strong>Por favor suba su comprobante de pago aquí:</strong></p>
+            <p>
+                <a t-att-href="object.get_base_url() + '/confirm/quote/upload/submit?sale_id=' + str(object.id)" target="_blank">Subir recibo de pago</a>
+            </p>
+
+            <p>No dude en ponerse en contacto con nosotros si tiene alguna pregunta.</p>
+            ]]></field>
+    </record>
+</odoo>

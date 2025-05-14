@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <template id="custom_payment_receipt_upload" name="Custom Receipt Upload"
+            inherit_id="website_sale.payment">
+            <xpath expr="//div[@id='payment_method']" position="after">
+                <!-- <div class="form-group mt-3">
+                <label for="receipt_upload">Subir Recibo de Pago</label>
+                <input type="file" name="receipt_upload" id="receipt_upload" class="form-control" />
+            </div> -->
+                <form action="/confirm/quote/upload" method="post"
+                    enctype="multipart/form-data" class="mt-4">
+                    <label for="receipt">Sube tu recibo de pago:</label>
+                    <input type="file" name="receipt" accept=".pdf,.jpg,.png"
+                        class="form-control mb-2" />
+                    <button type="submit" class="btn btn-primary">Confirmar Cotización</button>
+                </form>
+
+
+                <t t-if="request.params.get('error')">
+                    <div class="alert alert-danger my-2">
+                        <t t-if="request.params.get('error') == 'archivo_faltante'">Debes subir un
+                            recibo de pago.</t>
+                        <t t-if="request.params.get('error') == 'pedido_no_encontrado'">No se
+                            encontró
+                            el pedido actual.</t>
+                        <t
+                            t-if="request.params.get('error') not in ['archivo_faltante', 'pedido_no_encontrado']">
+                            Ocurrió un error inesperado.
+                        </t>
+                        <button type="button" class="btn-close float-end" data-bs-dismiss="alert"
+                            aria-label="Cerrar"></button>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+
+        <!-- <template id="custom_payment_form_receipt_upload" name="Payment Form Upload"
+        inherit_id="website_sale.navigation_buttons">
+        <xpath expr="//div[1]" position="inside">
+            <button type="button" id="confirm_quote" class="btn btn-primary mt-3">
+                Confirmar Cotización
+            </button>
+        </xpath>
+    </template> -->
+
+        <record id="view_order_form_inherit_receipt" model="ir.ui.view">
+            <field name="name">sale.order.form.receipt.attachments</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_information']" position="after">
+                    <page string="Recibo de pago">
+                        <group string="Recibos de pago">
+                            <field name="receipt_attachment_ids" widget="many2many_binary"
+                                readonly="1" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

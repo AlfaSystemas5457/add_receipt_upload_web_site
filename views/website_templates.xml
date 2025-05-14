@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Plantilla de carga de recibo -->
+        <template id="receipt_upload_template" name="Upload Receipt Form">
+            <t t-call="website.layout">
+                <div class="container my-5">
+                    <h2>Subir comprobante de pago para <t t-esc="order.name" />
+                    </h2>
+                    <form action="/confirm/quote/upload/success" method="post"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="sale_id" t-att-value="order.id" />
+
+                        <div class="form-group">
+                            <label for="receipt">Selecciona el archivo del recibo:</label>
+                            <input type="file" name="receipt" class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                    </form>
+                </div>
+            </t>
+        </template>
+
+        <!-- Plantilla de página de éxito -->
+        <template id="upload_success_template" name="Upload Success Page">
+            <t t-call="website.layout">
+                <div class="container my-5">
+                    <h2>¡Gracias!</h2>
+                    <p>Hemos recibido tu comprobante para el pedido <strong>
+                            <t t-esc="order.name" />
+                        </strong>.</p>
+                    <a href="/" class="btn btn-secondary mt-3">Volver al inicio</a>
+                </div>
+            </t>
+        </template>
+
+        <!-- Plantilla de error al subir recibo -->
+        <template id="error_template" name="Error al subir recibo">
+            <t t-call="website.layout">
+                <div class="container my-5 text-center">
+                    <h2>Ha ocurrido un error</h2>
+                    <p t-esc="error"></p>
+                    <a href="/confirm/quote/upload" class="btn btn-secondary mt-3">Volver</a>
+                </div>
+            </t>
+        </template>
+
+        <!-- Plantilla de mensaje para subir recibo -->
+        <template id="success_message_template" name="Mensaje">
+            <t t-call="website.layout">
+                <div class="container my-5 text-center">
+                    <h2>Listo!!!</h2>
+                    <p>Se te enviara un correo donde podras subir el recibo de pago.</p>
+                    <p>El ID de su pedido en <t t-out="order.display_name" /></p>
+                    <a href="/" class="btn btn-secondary mt-3">Volver a inicio</a>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
