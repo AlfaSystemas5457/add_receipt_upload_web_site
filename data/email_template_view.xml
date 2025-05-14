@@ -10,7 +10,7 @@
         <field name="body_html"><![CDATA[
             <p>Hola <t t-out="object.partner_id.name"/>,</p>
 
-            <p>Su orden <strong><t t-out="object.name"/></strong> por un importe de <t t-out="object.amount_total"/> ha sido confirmada.</p>
+            <p>Su orden <strong><t t-out="object.name"/></strong> por un importe de <t t-if="object.pricelist_id.currency_id"> <t t-out="format_amount(object.amount_total, object.pricelist_id.currency_id)"/></t><t t-else=""><t t-out="object.amount_total"/></t> ha sido confirmada.</p>
             
             <p>Agradecemos su confianza.</p>
             
