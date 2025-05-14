@@ -20,11 +20,12 @@ class SaleOrder(models.Model):
 
         if template:
             # Enviar el correo
+            body_html = template._render_field('body_html', [self.id])[self.id]
             template.send_mail(self.id, force_send=True)
 
             # Publicar en el chatter del pedido
             self.message_post(
-                body="Se ha enviado el correo de confirmación al cliente.",
+                body=body_html,
                 message_type="comment",
                 subtype_xmlid="mail.mt_note"
             )
