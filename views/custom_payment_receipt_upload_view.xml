@@ -10,9 +10,6 @@
             </div> -->
                 <form action="/confirm/quote/upload" method="post"
                     enctype="multipart/form-data" class="mt-4">
-                    <label for="receipt">Sube tu recibo de pago:</label>
-                    <input type="file" name="receipt" accept=".pdf,.jpg,.png"
-                        class="form-control mb-2" />
                     <button type="submit" class="btn btn-primary">Confirmar Cotización</button>
                 </form>
 
